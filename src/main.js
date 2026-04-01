@@ -6,7 +6,6 @@ import vuetify from './plugins/vuetify'
 import i18n from './i18n'
 import './styles/global.css'
 import '@mdi/font/css/materialdesignicons.css'
-import { initDB, seedStore, dbSchema } from '@/utils/db'
 
 async function bootstrap() {
 	const pinia = createPinia()
