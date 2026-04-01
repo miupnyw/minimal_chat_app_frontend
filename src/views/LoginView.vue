@@ -77,14 +77,10 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
-
-// mock users
-const USERS = [
-	{ username: 'user1', password: 'user1' },
-	{ username: 'admin', password: 'admin' },
-]
+import { useAuthStore } from '@/stores/auth'
 
 const router = useRouter()
+const authStore = useAuthStore()
 
 const showPassword = ref(false)
 const loading = ref(false)
@@ -122,22 +118,17 @@ async function login() {
 
 	loading.value = true
 
-	// TODO: call real API
-	const user = USERS.find( u => u.username === form.username.trim() && u.password === form.password )
+	try {
+		// login
+		await authStore.login(form.username.trim(), form.password)
 
-	loading.value = false
-
-	// return if not found match user and alert error
-	if (!user) {
-		errorMsg.value = 'Invalid username or password'
-		return
+		// redirect if success 
+		router.push({ name: 'userListView' })
+	} catch (err) {
+		errorMsg.value = err.message || 'Invalid username or password'
+	} finally {
+		loading.value = false
 	}
-
-	// TODO: move to store
-	localStorage.setItem('currentUser', JSON.stringify({ username: user.username }))
-
-	// redirect to user list view
-	router.push('/')
 }
 </script>
 
