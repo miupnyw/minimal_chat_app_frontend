@@ -52,5 +52,5 @@ Move logic into composables then import file and use in View
 
 ### 5. Layout Pattern
 layouts/
-  DefaultLayout.vue
-  AuthLayout.vue
+	MainLayout.vue
+	AuthLayout.vue
