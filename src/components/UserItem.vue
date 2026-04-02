@@ -6,7 +6,6 @@
 		<template #prepend>
 		<v-avatar
 			:size="44"
-			:class="user.online ? 'avatar-online' : 'avatar-offline'"
 		>
 			<v-img v-if="user.avatar" :src="user.avatar" />
 		</v-avatar>
@@ -17,14 +16,8 @@
 			{{ user.name }}
 		</v-list-item-title>
 
-		<!-- Preview message -->
-		<v-list-item-subtitle class="text-caption">
-			{{ user.preview }}
-		</v-list-item-subtitle>
-
-		<!-- Time -->
 		<template #append>
-			<span class="text-caption text-medium-emphasis">{{ user.time }}</span>
+			<v-icon size="10" :color="user.online ? 'success' : 'grey'">mdi-circle</v-icon>
 		</template>
 	</v-list-item>
 </template>
@@ -40,11 +33,4 @@ const props = defineProps({
 </script>
 
 <style>
-.avatar-online {
-	border: 2px solid rgb(var(--v-theme-accent));
-}
-
-.avatar-offline {
-	border: 2px solid transparent;
-}
 </style>

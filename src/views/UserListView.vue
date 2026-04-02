@@ -48,31 +48,14 @@
 
 <script setup>
 import UserItem from '@/components/UserItem.vue';
-import { ref, reactive, computed } from 'vue'
+import { ref, computed } from 'vue'
+import { useChatStore } from '@/stores/chat'
 
-// mock users
-const USERS = reactive([{
-		id: 1,
-		name: 'Alice Johnson',
-		online: true,
-		time: '9:41',
-		preview: 'Sounds good!',
-		avatar: 'https://i.pravatar.cc/150?img=1'
-	},
-	{
-		id: 2,
-		name: 'Michael Lee',
-		online: false,
-		time: '8:20',
-		preview: 'See you tomorrow',
-		avatar: 'https://i.pravatar.cc/150?img=2'
-	}
-])
+const chatStore = useChatStore()
 
 const search = ref('')
 const filteredUsers = computed(() =>
-	// filter match user by name
-	USERS.filter(user =>
+	chatStore.users.filter(user =>
 		user.name.toLowerCase().includes(search.value.toLowerCase())
 	)
 )
